@@ -1,0 +1,17 @@
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/bin/Debug/net7.0/GBC6thSemesterTeamHeroCoder
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/bin/Debug/net7.0/GBC6thSemesterTeamHeroCoder.deps.json
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/bin/Debug/net7.0/GBC6thSemesterTeamHeroCoder.runtimeconfig.json
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/bin/Debug/net7.0/GBC6thSemesterTeamHeroCoder.dll
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/bin/Debug/net7.0/GBC6thSemesterTeamHeroCoder.pdb
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/obj/Debug/net7.0/GBC6thSemesterTeamHeroCoder.csproj.AssemblyReference.cache
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/obj/Debug/net7.0/GBC6thSemesterTeamHeroCoder.GeneratedMSBuildEditorConfig.editorconfig
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/obj/Debug/net7.0/GBC6thSemesterTeamHeroCoder.AssemblyInfoInputs.cache
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/obj/Debug/net7.0/GBC6thSemesterTeamHeroCoder.AssemblyInfo.cs
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/obj/Debug/net7.0/GBC6thSemesterTeamHeroCoder.csproj.CoreCompileInputs.cache
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/obj/Debug/net7.0/GBC6thSemesterTeamHeroCoder.dll
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/obj/Debug/net7.0/refint/GBC6thSemesterTeamHeroCoder.dll
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/obj/Debug/net7.0/GBC6thSemesterTeamHeroCoder.pdb
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/obj/Debug/net7.0/GBC6thSemesterTeamHeroCoder.genruntimeconfig.cache
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/obj/Debug/net7.0/ref/GBC6thSemesterTeamHeroCoder.dll
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/bin/Debug/net7.0/TeamHeroCoderLibrary.dll
+/Users/fernandorestituto/Desktop/Teaching/GBC6thSemesterTeamHeroCoder/obj/Debug/net7.0/GBC6thSemesterTeamHeroCoder.csproj.CopyComplete
