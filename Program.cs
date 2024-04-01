@@ -17,6 +17,16 @@ class Program
 
 public class MyAI : PartyAIManager
 {
+
+
+    //Brave
+    //Slow
+    //Ehter
+    //CHeck if hit will KO and do so if so,
+    //int amount = TeamHeroCoder.CalculateDamageAmount(TeamHeroCoder.BattleState.heroWithInitiative, TeamHeroCoder.BattleActionParams.MagicMissileDamageMod, target, false);
+
+
+
     public override void ProcessAI()
     {
         Console.WriteLine("Processing AI!");
@@ -26,6 +36,45 @@ public class MyAI : PartyAIManager
         if (TeamHeroCoder.BattleState.heroWithInitiative.characterClassID == TeamHeroCoder.HeroClassID.Fighter)
         {
             Console.WriteLine("this is a fighter");
+
+
+
+            foreach (Hero h in TeamHeroCoder.BattleState.playerHeroes)
+            {
+                if (h.characterClassID == TeamHeroCoder.HeroClassID.Cleric)
+                {
+                    float healthPercent = (float)h.health / (float)h.maxHealth;
+
+                    if (healthPercent < 0.6f && h.health > 0)
+                    {
+                        TeamHeroCoder.PerformHeroAbility(TeamHeroCoder.AbilityID.CureSerious, h);
+                        return;
+                    }
+
+                }
+            }
+
+            foreach (Hero h in TeamHeroCoder.BattleState.playerHeroes)
+            {
+                if (h.health == 0 && h.characterClassID == TeamHeroCoder.HeroClassID.Cleric)
+                {
+                    Console.WriteLine("KO cleric found");
+                    TeamHeroCoder.PerformHeroAbility(TeamHeroCoder.AbilityID.Resurrection, h);
+                    return;
+                }
+            }
+
+            foreach (Hero h in TeamHeroCoder.BattleState.playerHeroes)
+            {
+                if (h.health == 0)
+                {
+                    Console.WriteLine("KO cleric found");
+                    TeamHeroCoder.PerformHeroAbility(TeamHeroCoder.AbilityID.Resurrection, h);
+                    return;
+                }
+            }
+
+
 
             //Find the foe that is not KO and has the lowest health
             Hero target = null;
@@ -48,19 +97,82 @@ public class MyAI : PartyAIManager
         {
             Console.WriteLine("this is a cleric");
 
-            foreach(Hero h in TeamHeroCoder.BattleState.playerHeroes)
+
+
+            int heroBelow70Percent = 0;
+
+            foreach (Hero h in TeamHeroCoder.BattleState.playerHeroes)
             {
                 float healthPercent = (float)h.health / (float)h.maxHealth;
 
-                if(healthPercent < 0.7f)
+                if (healthPercent < 0.7f && h.health > 0)
+                {
+                    heroBelow70Percent++;
+                }
+            }
+
+            if (heroBelow70Percent >= 2)
+            {
+                TeamHeroCoder.PerformHeroAbility(TeamHeroCoder.AbilityID.MassHeal, TeamHeroCoder.BattleState.playerHeroes[0]);
+                return;
+            }
+
+
+
+
+            foreach (Hero h in TeamHeroCoder.BattleState.playerHeroes)
+            {
+                float healthPercent = (float)h.health / (float)h.maxHealth;
+
+                if (healthPercent < 0.7f && h.health > 0)
                 {
                     TeamHeroCoder.PerformHeroAbility(TeamHeroCoder.AbilityID.CureLight, h);
                     return;
                 }
-                
+
             }
 
-            
+
+
+            foreach (Hero h in TeamHeroCoder.BattleState.playerHeroes)
+            {
+                if (h.characterClassID == TeamHeroCoder.HeroClassID.Wizard)
+                {
+                    bool doesHaveFaith = false;
+
+                    foreach (StatusEffect se in h.statusEffects)
+                    {
+                        if (se.id == TeamHeroCoder.StatusEffectID.Faith)
+                            doesHaveFaith = true;
+                    }
+
+                    if (!doesHaveFaith)
+                    {
+                        TeamHeroCoder.PerformHeroAbility(TeamHeroCoder.AbilityID.Faith, h);
+                    }
+                }
+
+            }
+
+
+
+
+            bool clericDoesHaveHaste = false;
+            Hero cleric = TeamHeroCoder.BattleState.heroWithInitiative;
+
+            foreach (StatusEffect se in cleric.statusEffects)
+            {
+                if (se.id == TeamHeroCoder.StatusEffectID.Haste)
+                    clericDoesHaveHaste = true;
+            }
+
+            if (!clericDoesHaveHaste)
+            {
+                TeamHeroCoder.PerformHeroAbility(TeamHeroCoder.AbilityID.Haste, cleric);
+            }
+
+
+
             Hero target = null;
 
             foreach (Hero hero in TeamHeroCoder.BattleState.foeHeroes)
@@ -77,37 +189,51 @@ public class MyAI : PartyAIManager
             //This is the line of code that tells Team Hero Coder that we want to perform the attack action targeting the foe with the lowest HP
             TeamHeroCoder.PerformHeroAbility(TeamHeroCoder.AbilityID.Attack, target);
 
+
+
+
+
+
         }
         else if (TeamHeroCoder.BattleState.heroWithInitiative.characterClassID == TeamHeroCoder.HeroClassID.Wizard)
         {
             Console.WriteLine("this is a wizard");
 
 
-            //Find the foe that is not KO and has the lowest health
-            Hero target = null;
-
-            foreach (Hero hero in TeamHeroCoder.BattleState.foeHeroes)
+            if (TeamHeroCoder.AreAbilityAndTargetLegal(TeamHeroCoder.AbilityID.Meteor, null, false))
             {
-                if (hero.health > 0)
-                {
-                    if (target == null)
-                        target = hero;
-                    else if (hero.health < target.health)
-                        target = hero;
-                }
-            }
-
-            Console.WriteLine(TeamHeroCoder.HeroClassID.lookUp[target.characterClassID] + " has been select as lowest health target.");
-
-            if (TeamHeroCoder.AreAbilityAndTargetLegal(TeamHeroCoder.AbilityID.MagicMissile, target, true))
-            {
-                int amount = TeamHeroCoder.CalculateDamageAmount(TeamHeroCoder.BattleState.heroWithInitiative, TeamHeroCoder.BattleActionParams.MagicMissileDamageMod, target, false);
-                Console.WriteLine("Magic Missile Damage == " + amount);
-                TeamHeroCoder.PerformHeroAbility(TeamHeroCoder.AbilityID.MagicMissile, target);
+                Console.WriteLine("attempting to cast meteor");
+                TeamHeroCoder.PerformHeroAbility(TeamHeroCoder.AbilityID.Meteor, TeamHeroCoder.BattleState.foeHeroes[0]);
             }
             else
             {
-                TeamHeroCoder.PerformHeroAbility(TeamHeroCoder.AbilityID.Attack, target);
+                Console.WriteLine("not attempting to cast meteor");
+                //Find the foe that is not KO and has the lowest health
+                Hero target = null;
+
+                foreach (Hero hero in TeamHeroCoder.BattleState.foeHeroes)
+                {
+                    if (hero.health > 0)
+                    {
+                        if (target == null)
+                            target = hero;
+                        else if (hero.health < target.health)
+                            target = hero;
+                    }
+                }
+
+                Console.WriteLine(TeamHeroCoder.HeroClassID.lookUp[target.characterClassID] + " has been select as lowest health target.");
+
+                if (TeamHeroCoder.AreAbilityAndTargetLegal(TeamHeroCoder.AbilityID.MagicMissile, target, true))
+                {
+                    int amount = TeamHeroCoder.CalculateDamageAmount(TeamHeroCoder.BattleState.heroWithInitiative, TeamHeroCoder.BattleActionParams.MagicMissileDamageMod, target, false);
+                    Console.WriteLine("Magic Missile Damage == " + amount);
+                    TeamHeroCoder.PerformHeroAbility(TeamHeroCoder.AbilityID.MagicMissile, target);
+                }
+                else
+                {
+                    TeamHeroCoder.PerformHeroAbility(TeamHeroCoder.AbilityID.Attack, target);
+                }
             }
 
         }
